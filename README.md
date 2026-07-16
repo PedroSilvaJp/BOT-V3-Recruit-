@@ -1,2 +1,1 @@
-# BOT-V3-Recruit-
-BOT De Recrutamento 
+Configure config.json e execute npm install && npm start

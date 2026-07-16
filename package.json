@@ -1,0 +1,9 @@
+{
+  "token": "SEU_TOKEN_DO_BOT",
+  "clientId": "ID_DA_APLICACAO",
+  "guildId": "ID_DO_SERVIDOR",
+  "roles": {
+    "recruta": "ID_DO_CARGO_RECRUTA",
+    "guarda": "ID_DO_CARGO_GUARDA"
+  }
+}
