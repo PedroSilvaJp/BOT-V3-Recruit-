@@ -11,7 +11,7 @@ const {
 
 const config = require("./config.json");
 
-// Cria o cliente do bot
+// cria o comando do bot
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -22,13 +22,9 @@ const client = new Client({
         Partials.Channel
     ]
 });
-
-// Lista de comandos
 const comandos = [];
 
-// -----------------------------
-// Comando /registro
-// -----------------------------
+// aqui o comando registro 
 comandos.push(
     new SlashCommandBuilder()
         .setName("registro")
@@ -41,9 +37,7 @@ comandos.push(
         )
 );
 
-// -----------------------------
-// Comando /clear
-// -----------------------------
+// comando /clear
 comandos.push(
     new SlashCommandBuilder()
         .setName("clear")
@@ -56,7 +50,7 @@ comandos.push(
         )
 );
 
-// Registrar os comandos no servidor
+// registrra os comandos no sistema 
 async function registrarComandos() {
 
     try {
@@ -86,7 +80,6 @@ async function registrarComandos() {
 
 registrarComandos();
 
-// Quando o bot ligar
 client.once(Events.ClientReady, () => {
 
     console.log("Bot conectado!");
@@ -94,21 +87,18 @@ client.once(Events.ClientReady, () => {
 
 });
 
-// Escutar os comandos Slash
 client.on(Events.InteractionCreate, async (interaction) => {
 
     if (!interaction.isChatInputCommand()) {
         return;
     }
 
-    // ==========================
-    // COMANDO /registro
-    // ==========================
+
     if (interaction.commandName === "registro") {
 
         const membro = interaction.member;
 
-        // Verifica se possui o cargo Recruta
+        // aqui verifica o cargo de recruta 
         if (!membro.roles.cache.has(config.roles.recruta)) {
 
             await interaction.reply({
@@ -121,7 +111,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
         const nick = interaction.options.getString("nick");
 
-        // Altera o apelido
+        // Aqui altera o nick
         try {
 
             await membro.setNickname(nick);
@@ -132,7 +122,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
         }
 
-        // Remove o cargo Recruta
+        // aqui remove o cargo de recruta 
         try {
 
             await membro.roles.remove(config.roles.recruta);
@@ -143,7 +133,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
         }
 
-        // Adiciona o cargo Guarda
+        // e aaui adiciona o cargo de guarda 
         try {
 
             await membro.roles.add(config.roles.guarda);
@@ -161,12 +151,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
         return;
     }
-     // ==========================
-    // COMANDO /clear
-    // ==========================
+     
+    // clear 
     if (interaction.commandName === "clear") {
 
-        // Verifica se o usuário tem permissão
+        // aqui barra de outro usuario tentar usar 
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
 
             await interaction.reply({
@@ -177,10 +166,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
             return;
         }
 
-        // Quantidade de mensagens
+        
         let quantidade = interaction.options.getInteger("quantidade");
 
-        // Limita entre 1 e 100
+
         if (quantidade < 1) {
             quantidade = 1;
         }
@@ -215,5 +204,5 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 });
 
-// Liga o bot
+
 client.login(config.token);
